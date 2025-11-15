@@ -1,4 +1,13 @@
 {
-  "medications": [],
+  "medications": [
+    {
+      "id": "c0a45480-6ce5-4809-a7a8-a1038864ec65",
+      "name": "Methylphenidat",
+      "dosage": "10 mg",
+      "times": [
+        "morgens"
+      ]
+    }
+  ],
   "intakes": []
 }
