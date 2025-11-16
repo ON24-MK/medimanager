@@ -1,24 +1,29 @@
 <template>
-  <div style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: 0 auto;">
+  <div
+    style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: 0 auto;"
+  >
     <h1>MediManager</h1>
 
-   <div v-if="!token">
-  <p v-if="authError" style="color: red; margin-bottom: 0.5rem;">
-    {{ authError }}
-  </p>
-  <LoginForm @login-success="handleLoginSuccess" />
-</div>
+    <!-- Wenn KEIN Token vorhanden ist: Login anzeigen -->
+    <div v-if="!token">
+      <p v-if="authError" style="color: red; margin-bottom: 0.5rem;">
+        {{ authError }}
+      </p>
 
+      <LoginForm @login-success="handleLoginSuccess" />
+    </div>
+
+    <!-- Wenn Token vorhanden ist: App-Bereich -->
     <div v-else>
-  <div
-    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;"
-  >
-    <h2 style="margin: 0;">Willkommen 👋</h2>
-    <button @click="logout">Logout</button>
-  </div>
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;"
+      >
+        <h2 style="margin: 0;">Willkommen 👋</h2>
+        <button @click="logout">Logout</button>
+      </div>
 
-  <!-- Backend-Status -->
-  <BackendStatus :health="health" />
+      <!-- Backend-Status -->
+      <BackendStatus :health="health" />
 
       <hr style="margin: 2rem 0;" />
 
@@ -31,6 +36,12 @@
       </ul>
 
       <hr style="margin: 2rem 0;" />
+
+      <!-- Formular: Medikament hinzufügen -->
+      <MedicationForm
+        :token="token"
+        @medication-created="handleMedicationCreated"
+      />
 
       <!-- Medikamentenliste -->
       <MedicationsList :medications="medications" />
@@ -111,6 +122,11 @@ function logout() {
   medications.value = [];
 
   // Health ohne Token neu laden (optional)
+  loadData();
+}
+
+function handleMedicationCreated() {
+  // Nach dem Anlegen einfach die Liste neu laden
   loadData();
 }
 
