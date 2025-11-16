@@ -14,27 +14,13 @@
 
     <!-- EINGELOGGTER BEREICH -->
     <div v-else>
+      <!-- Kopfzeile mit Logout -->
       <div
-        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;"
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;"
       >
         <h2 style="margin: 0;">Willkommen 👋</h2>
         <button @click="logout">Logout</button>
       </div>
-
-      <!-- Backend Status -->
-      <BackendStatus :health="health" />
-
-      <hr style="margin: 2rem 0;" />
-
-      <h2>App-Bereiche</h2>
-      <ul>
-        <li>Medikamentenliste</li>
-        <li>Medikament hinzufügen</li>
-        <li>Tagesübersicht</li>
-        <li>Tagebuch</li>
-      </ul>
-
-      <hr style="margin: 2rem 0;" />
 
       <!-- Medikament hinzufügen -->
       <MedicationForm
@@ -49,7 +35,7 @@
         @edit-medication="startEditMedication"
       />
 
-      <!-- Medikament bearbeiten (nur wenn eins ausgewählt) -->
+      <!-- Medikament bearbeiten -->
       <EditMedicationForm
         v-if="selectedMedicationForEdit"
         :token="token"
@@ -69,8 +55,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-
-import BackendStatus from './components/BackendStatus.vue';
 import MedicationsList from './components/MedicationsList.vue';
 import LoginForm from './components/LoginForm.vue';
 import MedicationForm from './components/MedicationForm.vue';
@@ -192,6 +176,74 @@ onMounted(async () => {
 <style>
 body {
   margin: 0;
+  background: #f5f5fa;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* Alle Sektionen (Status, Liste, Formulare, Overview, Tagebuch) als Cards */
+section {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+/* Buttons einheitlich */
+button {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #4f46e5;
+  background: #4f46e5;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+button:hover {
+  background: #4338ca;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.35);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Listen etwas luftiger */
+ul {
+  padding-left: 1.2rem;
+}
+
+li {
+  line-height: 1.4;
+}
+
+/* Inputs global etwas hübscher, falls kein scoped Style greift */
+input,
+textarea {
+  border-radius: 6px;
+  border: 1px solid #d4d4d8;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  box-sizing: border-box;
 }
 </style>
 

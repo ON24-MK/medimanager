@@ -6,16 +6,17 @@
       "dosage": "10 mg",
       "times": [
         "morgens"
-      ]
+      ],
+      "notes": "bitte vorsichtig sein"
     },
     {
-      "id": "b4aa4975-e276-42d9-a307-0336663fef00",
-      "name": "test",
-      "dosage": "19 mg",
+      "id": "e45fb357-f97d-4bbf-a2ea-9370a94a3705",
+      "name": "opi",
+      "dosage": "20 mg",
       "times": [
-        "morgens"
+        "mittags"
       ],
-      "notes": "hallo"
+      "notes": "Servus"
     }
   ]
 }
