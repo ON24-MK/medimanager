@@ -45,6 +45,8 @@
 
       <!-- Medikamentenliste -->
       <MedicationsList :medications="medications" />
+    </
+
     </div>
   </div>
 </template>
