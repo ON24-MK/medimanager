@@ -3,6 +3,18 @@ import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
 
 const DATA_FILE = "./data/medications.json";
+const INTAKES_FILE = "./data/intakes.json";
+
+// optionaler Typ für Struktur (hilft beim Denken)
+interface Intake {
+  id: string;
+  medicationId: string;
+  date: string;      // "YYYY-MM-DD"
+  time?: string;     // z.B. "morgens"
+  taken: boolean;
+  notes?: string;
+  createdAt: string; // ISO-Datum
+}
 
 
 async function loadData() {
@@ -14,6 +26,23 @@ async function loadData() {
 async function saveData(data: unknown) {
  const text = JSON.stringify(data, null, 2);
  await Deno.writeTextFile(DATA_FILE, text);
+}
+
+async function loadIntakes(): Promise<{ intakes: Intake[] }> {
+  try {
+    const text = await Deno.readTextFile(INTAKES_FILE);
+    const parsed = JSON.parse(text);
+    return {
+      intakes: parsed.intakes ?? [],
+    };
+  } catch (_err) {
+    // Datei existiert noch nicht oder ist ungültig
+    return { intakes: [] };
+  }
+}
+async function saveIntakes(data: { intakes: Intake[] }): Promise<void> {
+  const text = JSON.stringify(data, null, 2);
+  await Deno.writeTextFile(INTAKES_FILE, text);
 }
 
 
@@ -30,7 +59,7 @@ router.get("/api/health", (ctx) => {
 });
 
 
-// ---------- Medikamente: READ ALL ----------
+// ---------- alle Medis lesen ----------
 router.get("/api/medications", async (ctx) => {
  try {
    const data = await loadData();
@@ -45,7 +74,7 @@ router.get("/api/medications", async (ctx) => {
 });
 
 
-// ---------- Medikamente: READ ONE ----------
+// ---------- ein Medi lesen ----------
 router.get("/api/medications/:id", async (ctx) => {
  try {
    const id = ctx.params.id!;
@@ -69,7 +98,7 @@ router.get("/api/medications/:id", async (ctx) => {
 });
 
 
-// ---------- Medikamente: CREATE ----------
+// ---------- Medi anlegen ----------
 router.post("/api/medications", async (ctx) => {
  try {
    const body = ctx.request.body({ type: "json" });
@@ -110,7 +139,7 @@ router.post("/api/medications", async (ctx) => {
 });
 
 
-// ---------- Medikamente: UPDATE ----------
+// ---------- Medi aktualisieren ----------
 router.put("/api/medications/:id", async (ctx) => {
  try {
    const id = ctx.params.id!;
@@ -156,7 +185,7 @@ router.put("/api/medications/:id", async (ctx) => {
 });
 
 
-// ---------- Medikamente: DELETE ----------
+// ---------- Medi löschen ----------
 router.delete("/api/medications/:id", async (ctx) => {
  try {
    const id = ctx.params.id!;
@@ -188,8 +217,60 @@ router.delete("/api/medications/:id", async (ctx) => {
  }
 });
 
+// ---------- Einnahne: CREATE (Einnahme protokollieren) ----------
+router.post("/api/intakes", async (ctx) => {
+  try {
+    const body = ctx.request.body({ type: "json" });
+    const intakeData = await body.value;
 
-// ---------- App starten ----------
+    if (!intakeData.medicationId || !intakeData.date) {
+      ctx.response.status = 400;
+      ctx.response.body = {
+        error: "medicationId und date sind Pflichtfelder",
+      };
+      return;
+    }
+
+    // Medikamente laden, um zu prüfen, ob das Medikament existiert
+    const medsData = await loadData();
+    const meds = medsData.medications ?? [];
+    const medExists = meds.some((m: any) => m.id === intakeData.medicationId);
+
+    if (!medExists) {
+      ctx.response.status = 400;
+      ctx.response.body = { error: "Medikament existiert nicht" };
+      return;
+    }
+
+    // Intakes laden
+    const intakeFile = await loadIntakes();
+    const allIntakes = intakeFile.intakes;
+
+    const newIntake: Intake = {
+      id: crypto.randomUUID(),
+      medicationId: intakeData.medicationId,
+      date: intakeData.date,          // "2025-11-16"
+      time: intakeData.time ?? null,
+      taken: intakeData.taken ?? true,
+      notes: intakeData.notes ?? "",
+      createdAt: new Date().toISOString(),
+    };
+
+    allIntakes.push(newIntake);
+
+    await saveIntakes({ intakes: allIntakes });
+
+    ctx.response.status = 201;
+    ctx.response.body = newIntake;
+  } catch (error) {
+    console.error("Fehler beim Anlegen eines Intakes:", error);
+    ctx.response.status = 500;
+    ctx.response.body = { error: "Konnte Intake nicht anlegen" };
+  }
+});
+
+
+// ---------- meine App starten ----------
 const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
