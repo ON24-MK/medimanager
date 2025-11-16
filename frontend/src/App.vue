@@ -2,7 +2,7 @@
   <div style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: 0 auto;">
     <h1>MediManager</h1>
     <!-- Login-Formular (eigene Komponente) -->
-<LoginForm />
+<LoginForm @login-success="handleLoginSuccess" />
 
     <!-- Backend-Status (eigene Komponente) -->
     <BackendStatus :health="health" />
@@ -30,9 +30,17 @@ import BackendStatus from './components/BackendStatus.vue';
 import MedicationsList from './components/MedicationsList.vue';
 import LoginForm from './components/LoginForm.vue';
 
-// Backend-Zustände
+// Token 
+const token = ref(localStorage.getItem("token") || null);
+
 const health = ref(null);
 const medications = ref([]);
+
+function handleLoginSuccess(receivedToken) {
+  token.value = receivedToken;
+  localStorage.setItem("token", receivedToken);
+  console.log("Login erfolgreich!", receivedToken);
+}
 
 onMounted(async () => {
   try {
