@@ -4,23 +4,43 @@
   >
     <h1>MediManager</h1>
 
-    <!-- Wenn KEIN Token: Login anzeigen -->
+    <!-- LOGIN-BEREICH -->
     <div v-if="!token">
       <p v-if="authError" style="color: red; margin-bottom: 0.5rem;">
         {{ authError }}
       </p>
-
       <LoginForm @login-success="handleLoginSuccess" />
     </div>
 
-    <!-- Wenn Token vorhanden: App -->
+    <!-- EINGELOGGTER BEREICH -->
     <div v-else>
-      <!-- Kopfzeile -->
+      <!-- Kopfzeile mit Logout -->
       <div
         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;"
       >
         <h2 style="margin: 0;">Willkommen 👋</h2>
         <button @click="logout">Logout</button>
+      </div>
+
+      <!-- Willkommens-Block, solange noch kein Tab gewählt wurde -->
+      <div
+        v-if="!activeTab"
+        style="
+          background: white;
+          border-radius: 1rem;
+          padding: 1.5rem;
+          margin-bottom: 1.5rem;
+          box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        "
+      >
+        <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Hallo 👋</h2>
+        <p style="margin: 0.25rem 0;">
+          Schön, dass du da bist. Zeit für deine Medikamente.
+        </p>
+        <p style="margin: 0.25rem 0;">
+          Wähle oben einen Bereich, um deine Medis zu verwalten oder deine
+          Einnahmen zu dokumentieren.
+        </p>
       </div>
 
       <!-- Tabs -->
@@ -78,7 +98,7 @@
       </div>
 
       <!-- TAB: Tagebuch -->
-      <div v-else>
+      <div v-else-if="activeTab === 'log'">
         <IntakeLog :token="token" :medications="medications" />
       </div>
     </div>
@@ -102,7 +122,7 @@ const authError = ref("");
 const health = ref(null);
 const medications = ref([]);
 const selectedMedicationForEdit = ref(null);
-const activeTab = ref("meds"); // 'meds' | 'overview' | 'log'
+const activeTab = ref(null); // noch kein Tab ausgewählt
 
 // BACKEND DATEN LADEN
 async function loadData() {
