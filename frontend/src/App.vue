@@ -9,10 +9,16 @@
   <LoginForm @login-success="handleLoginSuccess" />
 </div>
 
-    <!-- Wenn Token vorhanden ist: eigentliche App anzeigen -->
     <div v-else>
-      <!-- Backend-Status -->
-      <BackendStatus :health="health" />
+  <div
+    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;"
+  >
+    <h2 style="margin: 0;">Willkommen 👋</h2>
+    <button @click="logout">Logout</button>
+  </div>
+
+  <!-- Backend-Status -->
+  <BackendStatus :health="health" />
 
       <hr style="margin: 2rem 0;" />
 
@@ -95,6 +101,16 @@ async function handleLoginSuccess(receivedToken) {
   console.log("Login erfolgreich! Token gespeichert:", receivedToken);
 
   await loadData();
+}
+
+function logout() {
+  token.value = null;
+  localStorage.removeItem("token");
+  authError.value = "";
+  medications.value = [];
+
+  // Health ohne Token neu laden (optional)
+  loadData();
 }
 
 onMounted(async () => {
