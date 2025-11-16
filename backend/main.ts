@@ -291,6 +291,55 @@ router.get("/api/intakes", async (ctx) => {
   }
 });
 
+// ---------- Tagesübersicht: Medikamente + Intakes für einen Tag ----------
+router.get("/api/day-overview", async (ctx) => {
+  try {
+    // Datum aus Query holen, z.B. /api/day-overview?date=2025-11-16
+    let date = ctx.request.url.searchParams.get("date");
+
+    // Wenn kein Datum angegeben ist -> heutiges Datum im Format YYYY-MM-DD
+    if (!date) {
+      date = new Date().toISOString().slice(0, 10);
+    }
+
+    // Medikamente laden
+    const medsData = await loadData();
+    const meds = medsData.medications ?? [];
+
+    // Einnahme laden
+    const intakeFile = await loadIntakes();
+    const allIntakes = intakeFile.intakes ?? [];
+
+    // Einnahme nur für dieses Datum
+    const intakesForDay = allIntakes.filter((i: any) => i.date === date);
+
+    // Übersicht pro Medikament 
+    const overview = meds.map((med: any) => {
+      const entries = intakesForDay.filter(
+        (i: any) => i.medicationId === med.id,
+      );
+
+      return {
+        id: med.id,
+        name: med.name,
+        dosage: med.dosage,
+        times: med.times ?? [],
+        notes: med.notes ?? "",
+        intakes: entries,
+        taken: entries.some((i: any) => i.taken === true),
+      };
+    });
+
+    ctx.response.body = {
+      date,
+      overview,
+    };
+  } catch (error) {
+    console.error("Fehler bei der Tagesübersicht:", error);
+    ctx.response.status = 500;
+    ctx.response.body = { error: "Konnte Tagesübersicht nicht berechnen" };
+  }
+});
 
 // ---------- meine App starten ----------
 const app = new Application();
