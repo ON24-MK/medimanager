@@ -4,17 +4,18 @@
   >
     <h1>MediManager</h1>
 
-    <!-- LOGIN-BEREICH -->
+    <!-- Wenn KEIN Token: Login anzeigen -->
     <div v-if="!token">
       <p v-if="authError" style="color: red; margin-bottom: 0.5rem;">
         {{ authError }}
       </p>
+
       <LoginForm @login-success="handleLoginSuccess" />
     </div>
 
-    <!-- EINGELOGGTER BEREICH -->
+    <!-- Wenn Token vorhanden: App -->
     <div v-else>
-      <!-- Kopfzeile mit Logout -->
+      <!-- Kopfzeile -->
       <div
         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;"
       >
@@ -22,33 +23,64 @@
         <button @click="logout">Logout</button>
       </div>
 
-      <!-- Medikament hinzufügen -->
-      <MedicationForm
-        :token="token"
-        @medication-created="handleMedicationCreated"
-      />
+      <!-- Tabs -->
+      <div class="tabs">
+        <button
+          class="tab"
+          :class="{ 'tab--active': activeTab === 'meds' }"
+          @click="activeTab = 'meds'"
+        >
+          Medikamente
+        </button>
 
-      <!-- Medikamentenliste -->
-      <MedicationsList
-        :medications="medications"
-        @delete-medication="handleMedicationDelete"
-        @edit-medication="startEditMedication"
-      />
+        <button
+          class="tab"
+          :class="{ 'tab--active': activeTab === 'overview' }"
+          @click="activeTab = 'overview'"
+        >
+          Tagesübersicht
+        </button>
 
-      <!-- Medikament bearbeiten -->
-      <EditMedicationForm
-        v-if="selectedMedicationForEdit"
-        :token="token"
-        :medication="selectedMedicationForEdit"
-        @cancel="selectedMedicationForEdit = null"
-        @medication-updated="handleMedicationUpdated"
-      />
+        <button
+          class="tab"
+          :class="{ 'tab--active': activeTab === 'log' }"
+          @click="activeTab = 'log'"
+        >
+          Tagebuch
+        </button>
+      </div>
 
-      <!-- Tagesübersicht -->
-      <DayOverview :token="token" />
+      <!-- TAB: Medikamente -->
+      <div v-if="activeTab === 'meds'">
+        <MedicationForm
+          :token="token"
+          @medication-created="handleMedicationCreated"
+        />
 
-      <!-- Tagebuch -->
-      <IntakeLog :token="token" :medications="medications" />
+        <MedicationsList
+          :medications="medications"
+          @delete-medication="handleMedicationDelete"
+          @edit-medication="startEditMedication"
+        />
+
+        <EditMedicationForm
+          v-if="selectedMedicationForEdit"
+          :token="token"
+          :medication="selectedMedicationForEdit"
+          @cancel="selectedMedicationForEdit = null"
+          @medication-updated="handleMedicationUpdated"
+        />
+      </div>
+
+      <!-- TAB: Tagesübersicht -->
+      <div v-else-if="activeTab === 'overview'">
+        <DayOverview :token="token" />
+      </div>
+
+      <!-- TAB: Tagebuch -->
+      <div v-else>
+        <IntakeLog :token="token" :medications="medications" />
+      </div>
     </div>
   </div>
 </template>
@@ -70,6 +102,7 @@ const authError = ref("");
 const health = ref(null);
 const medications = ref([]);
 const selectedMedicationForEdit = ref(null);
+const activeTab = ref("meds"); // 'meds' | 'overview' | 'log'
 
 // BACKEND DATEN LADEN
 async function loadData() {
@@ -244,6 +277,33 @@ textarea {
   font-size: 0.9rem;
   font-family: inherit;
   box-sizing: border-box;
+}
+
+.tabs {
+  display: inline-flex;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tab + .tab {
+  margin-left: 0.25rem;
+}
+
+.tab--active {
+  background: #4f46e5;
+  color: white;
 }
 </style>
 
