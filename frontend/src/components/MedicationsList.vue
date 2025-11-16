@@ -5,6 +5,14 @@ const props = defineProps({
     default: () => [],
   },
 });
+
+const emit = defineEmits(['delete-medication']);
+
+function requestDelete(id) {
+  const sicher = confirm('Willst du dieses Medikament wirklich löschen?');
+  if (!sicher) return;
+  emit('delete-medication', id);
+}
 </script>
 
 <template>
@@ -12,11 +20,22 @@ const props = defineProps({
     <h2>Medikamentenliste (aus Backend):</h2>
 
     <ul v-if="props.medications.length">
-      <li v-for="med in props.medications" :key="med.id">
+      <li
+        v-for="med in props.medications"
+        :key="med.id"
+        style="margin-bottom: 0.5rem;"
+      >
         {{ med.name }} – {{ med.dosage }}
         <span v-if="med.times && med.times.length">
-          ({{ med.times.join(", ") }})
+          ({{ med.times.join(', ') }})
         </span>
+
+        <button
+          style="margin-left: 0.5rem;"
+          @click="requestDelete(med.id)"
+        >
+          Löschen
+        </button>
       </li>
     </ul>
 
