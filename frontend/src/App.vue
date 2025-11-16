@@ -45,8 +45,10 @@
 
       <!-- Medikamentenliste -->
       <MedicationsList :medications="medications" />
-    </
 
+      <!-- Tagesübersicht -->
+      <DayOverview :token="token" />
+      
     </div>
   </div>
 </template>
@@ -57,6 +59,7 @@ import BackendStatus from './components/BackendStatus.vue';
 import MedicationsList from './components/MedicationsList.vue';
 import LoginForm from './components/LoginForm.vue';
 import MedicationForm from './components/MedicationForm.vue';
+import DayOverview from './components/DayOverview.vue';
 
 const token = ref(localStorage.getItem("token") || null);
 
