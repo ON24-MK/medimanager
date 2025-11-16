@@ -48,7 +48,9 @@
 
       <!-- Tagesübersicht -->
       <DayOverview :token="token" />
-      
+
+      <!-- Tagebuch / Intakes -->
+      <IntakeLog :token="token" :medications="medications" />
     </div>
   </div>
 </template>
@@ -60,6 +62,7 @@ import MedicationsList from './components/MedicationsList.vue';
 import LoginForm from './components/LoginForm.vue';
 import MedicationForm from './components/MedicationForm.vue';
 import DayOverview from './components/DayOverview.vue';
+import IntakeLog from './components/IntakeLog.vue';
 
 const token = ref(localStorage.getItem("token") || null);
 
