@@ -7,6 +7,15 @@
       "times": [
         "morgens"
       ]
+    },
+    {
+      "id": "b4aa4975-e276-42d9-a307-0336663fef00",
+      "name": "test",
+      "dosage": "19 mg",
+      "times": [
+        "morgens"
+      ],
+      "notes": "hallo"
     }
   ]
 }

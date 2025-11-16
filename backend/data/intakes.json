@@ -8,6 +8,15 @@
       "taken": true,
       "notes": "alles okay",
       "createdAt": "2025-11-16T11:33:26.252Z"
+    },
+    {
+      "id": "28f519dd-0598-46e3-b474-47ae7d354f07",
+      "medicationId": "b4aa4975-e276-42d9-a307-0336663fef00",
+      "date": "2025-11-16",
+      "time": null,
+      "taken": true,
+      "notes": "",
+      "createdAt": "2025-11-16T14:22:02.177Z"
     }
   ]
 }
