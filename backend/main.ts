@@ -4,8 +4,12 @@ import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
 const DATA_FILE = "./data/medications.json";
 const INTAKES_FILE = "./data/intakes.json";
+const USERS_FILE = "./data/users.json";
 
-// optionaler Typ für Struktur (hilft beim Denken)
+// mein Session-Speicher: man hat token und die userId
+const sessions = new Map<string, string>();
+
+
 interface Intake {
   id: string;
   medicationId: string;
