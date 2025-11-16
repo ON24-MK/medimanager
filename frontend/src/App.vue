@@ -43,6 +43,7 @@ import { ref, onMounted } from 'vue';
 import BackendStatus from './components/BackendStatus.vue';
 import MedicationsList from './components/MedicationsList.vue';
 import LoginForm from './components/LoginForm.vue';
+import MedicationForm from './components/MedicationForm.vue';
 
 const token = ref(localStorage.getItem("token") || null);
 
