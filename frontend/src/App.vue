@@ -2,7 +2,17 @@
   <div
     style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: 0 auto;"
   >
-    <h1>MediManager</h1>
+    <!-- Größerer Titel -->
+    <h1
+      style="
+        font-size: 3rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2rem;
+      "
+    >
+      MediManager
+    </h1>
 
     <!-- LOGIN-BEREICH -->
     <div v-if="!token">
@@ -14,11 +24,10 @@
 
     <!-- EINGELOGGTER BEREICH -->
     <div v-else>
-      <!-- Kopfzeile mit Logout -->
+      <!-- Nur Logout oben rechts, kein 'Willkommen' mehr -->
       <div
-        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;"
+        style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1.5rem;"
       >
-        <h2 style="margin: 0;">Willkommen 👋</h2>
         <button @click="logout">Logout</button>
       </div>
 
@@ -28,18 +37,18 @@
         style="
           background: white;
           border-radius: 1rem;
-          padding: 1.5rem;
+          padding: 2rem;
           margin-bottom: 1.5rem;
           box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+          text-align: center;
         "
       >
-        <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Hallo 👋</h2>
-        <p style="margin: 0.25rem 0;">
-          Schön, dass du da bist. Zeit für deine Medikamente.
+        <h2 style="margin-top: 0; margin-bottom: 1rem;">Hallo 👋</h2>
+        <p style="margin: 0.25rem 0; font-size: 1.1rem;">
+          Schön, dass Du da bist. Zeit für Deine Medikamente.
         </p>
-        <p style="margin: 0.25rem 0;">
-          Wähle oben einen Bereich, um deine Medis zu verwalten oder deine
-          Einnahmen zu dokumentieren.
+        <p style="margin: 0.25rem 0; font-size: 1.05rem;">
+          Wähle den passenden Tab unten aus.
         </p>
       </div>
 
