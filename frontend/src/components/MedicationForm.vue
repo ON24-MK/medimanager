@@ -86,33 +86,33 @@ async function handleSubmit() {
 
 <template>
   <section style="margin-bottom: 2rem;">
-    <h2>Medikament hinzufügen</h2>
+    <h2>Neues Medikament hinzufügen</h2>
 
     <form @submit.prevent="handleSubmit">
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Name*<br />
-          <input v-model="name" type="text" placeholder="z.B. Methylphenidat" />
+          Medikamentenname<br />
+          <input v-model="name" type="text" placeholder="z.B. Medikinet" />
         </label>
       </div>
 
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Dosierung*<br />
+          Dosierung<br />
           <input v-model="dosage" type="text" placeholder="z.B. 10 mg" />
         </label>
       </div>
 
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Einnahmezeiten (optional, kommasepariert)<br />
-          <input v-model="timesText" type="text" placeholder="z.B. morgens, mittags" />
+          Einnahmezeiten<br />
+          <input v-model="timesText" type="text" placeholder="z.B. morgens, mittags oder abends" />
         </label>
       </div>
 
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Notizen (optional)<br />
+          Notizen<br />
           <textarea v-model="notes" rows="2" style="width: 100%; max-width: 300px;"></textarea>
         </label>
       </div>

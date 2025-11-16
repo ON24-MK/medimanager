@@ -8,6 +8,16 @@
         "morgens"
       ],
       "notes": "bitte vorsichtig sein"
+    },
+    {
+      "id": "41fc7d54-b1ab-4531-9bbb-5087656743e1",
+      "name": "Medikinet",
+      "dosage": "20 mg",
+      "times": [
+        "morgens",
+        "mittags"
+      ],
+      "notes": "Nicht vergessen!"
     }
   ]
 }
