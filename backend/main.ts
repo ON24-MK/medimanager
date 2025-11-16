@@ -32,6 +32,18 @@ async function saveData(data: unknown) {
  await Deno.writeTextFile(DATA_FILE, text);
 }
 
+async function loadUsers(): Promise<{ users: any[] }> {
+  try {
+    const text = await Deno.readTextFile(USERS_FILE);
+    const parsed = JSON.parse(text);
+    return {
+      users: parsed.users ?? [],
+    };
+  } catch (_err) {
+    return { users: [] };
+  }
+}
+
 async function loadIntakes(): Promise<{ intakes: Intake[] }> {
   try {
     const text = await Deno.readTextFile(INTAKES_FILE);
