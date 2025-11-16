@@ -1,6 +1,8 @@
 <template>
   <div style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: 0 auto;">
     <h1>MediManager</h1>
+    <!-- Login-Formular (eigene Komponente) -->
+<LoginForm />
 
     <!-- Backend-Status (eigene Komponente) -->
     <BackendStatus :health="health" />
@@ -26,6 +28,7 @@
 import { ref, onMounted } from 'vue';
 import BackendStatus from './components/BackendStatus.vue';
 import MedicationsList from './components/MedicationsList.vue';
+import LoginForm from './components/LoginForm.vue';
 
 // Backend-Zustände
 const health = ref(null);
