@@ -53,7 +53,7 @@ async function handleSubmit() {
           <input
             v-model="username"
             type="text"
-            placeholder="z.B. admin oder michi"
+            placeholder="z.B. admin"
           />
         </label>
       </div>
@@ -64,7 +64,7 @@ async function handleSubmit() {
           <input
             v-model="password"
             type="password"
-            placeholder="Passwort"
+            placeholder="z.B. Passwort"
           />
         </label>
       </div>

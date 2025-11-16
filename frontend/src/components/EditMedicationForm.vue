@@ -5,21 +5,21 @@
     <form @submit.prevent="handleSubmit">
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Name*<br />
+          Medikamentenname<br />
           <input v-model="name" type="text" />
         </label>
       </div>
 
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Dosierung*<br />
+          Dosierung<br />
           <input v-model="dosage" type="text" />
         </label>
       </div>
 
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Einnahmezeiten (kommasepariert)<br />
+          Einnahmezeit<br />
           <input v-model="timesText" type="text" placeholder="z.B. morgens, abends" />
         </label>
       </div>

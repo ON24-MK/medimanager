@@ -29,7 +29,7 @@ async function handleSubmit() {
   }
 
   if (!name.value || !dosage.value) {
-    errorMessage.value = 'Name und Dosierung sind Pflichtfelder.';
+    errorMessage.value = 'Medikamentenname und Dosierung sind Pflichtfelder.';
     return;
   }
 

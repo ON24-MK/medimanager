@@ -9,7 +9,7 @@ const props = defineProps({
 const emit = defineEmits(['delete-medication', 'edit-medication']);
 
 function requestDelete(id) {
-  const sicher = confirm('Willst du dieses Medikament wirklich löschen?');
+  const sicher = confirm('Willst Du dieses Medikament wirklich löschen?');
   if (!sicher) return;
   emit('delete-medication', id);
 }
@@ -21,7 +21,7 @@ function requestEdit(med) {
 
 <template>
   <section>
-    <h2>Medikamentenliste (aus Backend):</h2>
+    <h2>Deine Medikamentenliste</h2>
 
     <ul v-if="props.medications.length">
       <li

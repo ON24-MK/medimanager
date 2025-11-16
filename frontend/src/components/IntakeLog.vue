@@ -111,7 +111,7 @@ watch(date, () => {
           <span v-else style="color: orange;">nicht genommen ⚠️</span>
           <br />
           <span v-if="entry.time">Zeit: {{ entry.time }}</span>
-          <span v-if="entry.notes"><br />Notiz: {{ entry.notes }}</span>
+          <span v-if="entry.notes"><br />Notizen: {{ entry.notes }}</span>
           <br />
           <small v-if="entry.createdAt">
             eingetragen am {{ new Date(entry.createdAt).toLocaleString() }}
