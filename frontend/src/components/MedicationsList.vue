@@ -6,12 +6,16 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['delete-medication']);
+const emit = defineEmits(['delete-medication', 'edit-medication']);
 
 function requestDelete(id) {
   const sicher = confirm('Willst du dieses Medikament wirklich löschen?');
   if (!sicher) return;
   emit('delete-medication', id);
+}
+
+function requestEdit(med) {
+  emit('edit-medication', med);
 }
 </script>
 
@@ -29,6 +33,13 @@ function requestDelete(id) {
         <span v-if="med.times && med.times.length">
           ({{ med.times.join(', ') }})
         </span>
+
+        <button
+          style="margin-left: 0.5rem;"
+          @click="requestEdit(med)"
+        >
+          Bearbeiten
+        </button>
 
         <button
           style="margin-left: 0.5rem;"

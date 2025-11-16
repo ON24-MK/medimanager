@@ -46,6 +46,16 @@
       <MedicationsList
         :medications="medications"
         @delete-medication="handleMedicationDelete"
+        @edit-medication="startEditMedication"
+      />
+
+      <!-- Medikament bearbeiten (nur wenn eins ausgewählt) -->
+      <EditMedicationForm
+        v-if="selectedMedicationForEdit"
+        :token="token"
+        :medication="selectedMedicationForEdit"
+        @cancel="selectedMedicationForEdit = null"
+        @medication-updated="handleMedicationUpdated"
       />
 
       <!-- Tagesübersicht -->
@@ -64,6 +74,7 @@ import BackendStatus from './components/BackendStatus.vue';
 import MedicationsList from './components/MedicationsList.vue';
 import LoginForm from './components/LoginForm.vue';
 import MedicationForm from './components/MedicationForm.vue';
+import EditMedicationForm from './components/EditMedicationForm.vue';
 import DayOverview from './components/DayOverview.vue';
 import IntakeLog from './components/IntakeLog.vue';
 
@@ -74,6 +85,7 @@ const authError = ref("");
 // BACKEND DATEN
 const health = ref(null);
 const medications = ref([]);
+const selectedMedicationForEdit = ref(null);
 
 // BACKEND DATEN LADEN
 async function loadData() {
@@ -84,7 +96,7 @@ async function loadData() {
     const res = await fetch("http://localhost:8000/api/health");
     health.value = await res.json();
 
-    // Wenn nicht eingeloggt → abbrechen
+    // Wenn nicht eingeloggt → nur Health
     if (!token.value) {
       medications.value = [];
       return;
@@ -104,6 +116,7 @@ async function loadData() {
       medications.value = [];
       return;
     }
+
     const medsData = await medsRes.json();
     medications.value = medsData.medications ?? [];
   } catch (err) {
@@ -125,6 +138,7 @@ function logout() {
   localStorage.removeItem("token");
   authError.value = "";
   medications.value = [];
+  selectedMedicationForEdit.value = null;
   loadData();
 }
 
@@ -155,6 +169,17 @@ async function handleMedicationDelete(id) {
   } catch {
     authError.value = "Server nicht erreichbar.";
   }
+}
+
+// MEDIKAMENT ZUM BEARBEITEN AUSWÄHLEN
+function startEditMedication(med) {
+  selectedMedicationForEdit.value = med;
+}
+
+// NACH UPDATE → Liste neu laden & Formular schließen
+async function handleMedicationUpdated() {
+  await loadData();
+  selectedMedicationForEdit.value = null;
 }
 
 // BEI START LADEN
