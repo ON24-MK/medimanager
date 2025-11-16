@@ -74,6 +74,47 @@ router.get("/api/health", (ctx) => {
  };
 });
 
+// ---------- Auth: LOGIN ----------
+router.post("/api/login", async (ctx) => {
+  try {
+    const body = ctx.request.body({ type: "json" });
+    const { username, password } = await body.value;
+
+    if (!username || !password) {
+      ctx.response.status = 400;
+      ctx.response.body = { error: "username und password sind Pflichtfelder" };
+      return;
+    }
+
+    const userFile = await loadUsers();
+    const user = userFile.users.find(
+      (u: any) => u.username === username && u.password === password,
+    );
+
+    if (!user) {
+      ctx.response.status = 401;
+      ctx.response.body = { error: "Ungültige Login-Daten" };
+      return;
+    }
+
+    // Token erzeugen und merken
+    const token = crypto.randomUUID();
+    sessions.set(token, user.id);
+
+    ctx.response.body = {
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+      },
+    };
+  } catch (error) {
+    console.error("Fehler beim Login:", error);
+    ctx.response.status = 500;
+    ctx.response.body = { error: "Login aktuell nicht möglich" };
+  }
+});
+
 
 // ---------- alle Medis lesen ----------
 router.get("/api/medications", async (ctx) => {
