@@ -231,6 +231,28 @@ router.post("/api/intakes", async (ctx) => {
       return;
     }
 
+    // ---------- Intakes: READ (optional nach Datum gefiltert) ----------
+router.get("/api/intakes", async (ctx) => {
+  try {
+    const date = ctx.request.url.searchParams.get("date");
+
+    const intakeFile = await loadIntakes();
+    const allIntakes = intakeFile.intakes;
+
+    let result = allIntakes;
+
+    if (date) {
+      result = allIntakes.filter((i) => i.date === date);
+    }
+
+    ctx.response.body = { intakes: result };
+  } catch (error) {
+    console.error("Fehler beim Laden von Intakes:", error);
+    ctx.response.status = 500;
+    ctx.response.body = { error: "Konnte Intakes nicht laden" };
+  }
+});
+
     // Medikamente laden, um zu prüfen, ob das Medikament existiert
     const medsData = await loadData();
     const meds = medsData.medications ?? [];
