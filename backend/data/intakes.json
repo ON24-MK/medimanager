@@ -1,3 +1,13 @@
 {
-  "intakes": []
+  "intakes": [
+    {
+      "id": "69cb0675-fff3-47bb-8e0c-c3171dd26a1c",
+      "medicationId": "c0a45480-6ce5-4809-a7a8-a1038864ec65",
+      "date": "2025-11-16",
+      "time": "morgens",
+      "taken": true,
+      "notes": "alles okay",
+      "createdAt": "2025-11-16T11:33:26.252Z"
+    }
+  ]
 }

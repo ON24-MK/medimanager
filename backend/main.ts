@@ -217,7 +217,7 @@ router.delete("/api/medications/:id", async (ctx) => {
  }
 });
 
-// ---------- Einnahne: CREATE (Einnahme protokollieren) ----------
+// ---------- Einnahme: CREATE (Einnahme protokollieren) ----------
 router.post("/api/intakes", async (ctx) => {
   try {
     const body = ctx.request.body({ type: "json" });
@@ -231,7 +231,7 @@ router.post("/api/intakes", async (ctx) => {
       return;
     }
 
-    // ---------- Intakes: READ (optional nach Datum gefiltert) ----------
+    // ---------- Einnahme: READ (optional nach Datum gefiltert) ----------
 router.get("/api/intakes", async (ctx) => {
   try {
     const date = ctx.request.url.searchParams.get("date");
@@ -253,7 +253,7 @@ router.get("/api/intakes", async (ctx) => {
   }
 });
 
-    // Medikamente laden, um zu prüfen, ob das Medikament existiert
+    // Medikamente laden - Medikament existiert?
     const medsData = await loadData();
     const meds = medsData.medications ?? [];
     const medExists = meds.some((m: any) => m.id === intakeData.medicationId);
