@@ -1,5 +1,4 @@
-import { Application, Router } from "https://deno.land/x/oak@v12.6.1/mod.ts";
-import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
+
 
 
 const DATA_FILE = "./data/medications.json";
@@ -400,9 +399,47 @@ router.get("/api/day-overview", async (ctx) => {
 
 // ---------- meine App starten ----------
 const app = new Application();
+
+// CORS erlauben (Frontend darf zugreifen)
+app.use(oakCors());
+// Auth-Middleware
+app.use(async (ctx, next) => {
+  const path = ctx.request.url.pathname;
+
+  // Diese Routen sind öffentlich:
+  if (path === "/api/health" || path === "/api/login") {
+    await next();
+    return;
+  }
+
+  // Alle anderen /api/... Routen brauchen jetzt mein Token
+  if (path.startsWith("/api/")) {
+    const authHeader = ctx.request.headers.get("Authorization");
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      ctx.response.status = 401;
+      ctx.response.body = { error: "Kein oder ungültiger Authorization-Header" };
+      return;
+    }
+
+    const token = authHeader.substring("Bearer ".length).trim();
+    const userId = sessions.get(token);
+
+    if (!userId) {
+      ctx.response.status = 401;
+      ctx.response.body = { error: "Token ungültig oder abgelaufen" };
+      return;
+    }
+
+    (ctx.state as any).userId = userId;
+  }
+
+  await next();
+});
+
+// Router verwenden
 app.use(router.routes());
 app.use(router.allowedMethods());
-
 
 console.log("MediManager Backend läuft auf http://localhost:8000");
 await app.listen({ port: 8000 });
