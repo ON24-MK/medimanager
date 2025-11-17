@@ -28,20 +28,29 @@
       "notes": ""
     },
     {
-      "id": "6d3a0cab-37c2-4a88-916c-9e6629b5e71c",
-      "name": "Essen ",
+      "id": "fc8fc2a2-c4eb-43a3-abe8-6f58cb5516ce",
+      "name": "Wasser",
       "dosage": "10 mg",
       "times": [
-        "morgens"
+        "mittags"
       ],
       "notes": ""
     },
     {
-      "id": "717b95be-751a-4d43-bcd7-1250cc9a504e",
-      "name": "mm",
-      "dosage": "dd",
+      "id": "9d1fdfa4-0f14-4337-8262-41553a707616",
+      "name": "s",
+      "dosage": "s",
       "times": [
-        "dd"
+        "s"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "ef5f6fca-3646-44b5-9611-a11af55164c6",
+      "name": "sss",
+      "dosage": "ssssss",
+      "times": [
+        "ssss"
       ],
       "notes": ""
     }

@@ -8,11 +8,11 @@ const props = defineProps({
   },
 });
 
-const date = ref(new Date().toISOString().slice(0, 10)); // "YYYY-MM-DD"
+const date = ref(new Date().toISOString().slice(0, 10));
 const loading = ref(false);
 const errorMessage = ref("");
-const overview = ref([]); // Liste der Medikamente + Status
-const savingId = ref(null); // welches Medikament gerade "genommen" wird
+const overview = ref([]);
+const savingId = ref(null);
 
 async function loadOverview() {
   errorMessage.value = "";
@@ -134,37 +134,36 @@ watch(date, () => {
         <div
           v-for="item in overview"
           :key="item.id"
-          class="day-card"
+          class="day-item"
         >
-          <div class="day-left">
-            <div class="pill-icon">💊</div>
+          <div class="day-info">
+            <span class="day-icon" aria-hidden="true">💊</span>
+
             <div class="day-text">
-              <div class="day-name">{{ item.name }}</div>
-              <div class="day-line">
+              <div class="day-name">
+                {{ item.name }}
+              </div>
+
+              <div class="day-details">
                 {{ item.dosage }}
                 <span v-if="item.times && item.times.length">
                   – {{ item.times.join(", ") }}
                 </span>
               </div>
+
               <div class="day-status-row">
                 Status:
-                <span
-                  v-if="item.taken"
-                  class="status-taken"
-                >
+                <span v-if="item.taken" class="status-taken">
                   genommen ✅
                 </span>
-                <span
-                  v-else
-                  class="status-open"
-                >
+                <span v-else class="status-open">
                   noch offen ⏳
                 </span>
               </div>
             </div>
           </div>
 
-          <div class="day-right fixed-right">
+          <div class="day-actions">
             <button
               class="day-btn"
               :class="{
@@ -218,47 +217,54 @@ watch(date, () => {
   margin-top: 0.5rem;
 }
 
-/* --- Karte wie Medikamentenliste --- */
-.day-card {
+/* einzelner Eintrag – optisch wie Medikamentenliste */
+.day-item {
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 1rem;
-
-  background: #f6f2ff;
-  border-radius: 16px;
-  padding: 0.7rem 1.25rem 0.6rem 1.25rem; /* oben / rechts / unten / links */
-  margin-bottom: 0.9rem;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 12px;
+  background: #f5f3ff;
   box-shadow: 0 10px 25px rgba(31, 41, 55, 0.08);
-  min-height: 80px; /* optional etwas kleiner */
 }
 
-/* Linke Spalte */
-.day-left {
+/* Linke Seite: Icon + Text, gleich wie med-list__info */
+.day-info {
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   gap: 0.75rem;
-  flex: 1; /* wichtige Änderung → Button bleibt rechts */
+  flex: 1;
+  min-width: 0;
 }
 
-.pill-icon {
-  font-size: 1.5rem;
+/* feste Icon-Breite → Text (Name, Dosierung, Status) startet immer am selben Punkt */
+.day-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 32px;
+  text-align: center;
+  margin-top: 2px;
 }
 
 .day-text {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.1rem;
+  min-width: 0;
 }
 
 .day-name {
   font-weight: 600;
   color: #1f2933;
-  font-size: 1.05rem;
+  word-break: break-word;
+  line-height: 1.2rem;
+  min-height: 1.2rem;
+  display: flex;
+  align-items: center;
 }
 
-.day-line {
+.day-details {
   font-size: 0.9rem;
   color: #4b5563;
 }
@@ -266,6 +272,7 @@ watch(date, () => {
 .day-status-row {
   font-size: 0.9rem;
   color: #4b5563;
+  margin-top: 0.15rem;
 }
 
 .status-taken {
@@ -280,15 +287,15 @@ watch(date, () => {
   margin-left: 0.3rem;
 }
 
-.day-right {
+/* rechte Seite: Button immer rechts bündig, ähnlich med-list__actions */
+.day-actions {
   display: flex;
-  align-items: flex-start; /* Button oben statt mittig */
-  justify-content: center;
+  margin-left: auto;
+  flex-shrink: 0;
   min-width: 200px;
-  padding-top: 4px; /* optional: feine Justierung */
+  justify-content: flex-end;
 }
 
-/* Standard Button Style */
 .day-btn {
   width: 100%;
   text-align: center;
@@ -299,9 +306,9 @@ watch(date, () => {
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.05s ease;
+  white-space: nowrap;
 }
 
-/* LILA Button – Einnahme dokumentieren (dunkler) */
 .day-btn-primary {
   background: linear-gradient(90deg, #4f46e5, #4338ca);
   color: #ffffff;
