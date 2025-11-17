@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted } from "vue";
 
 const props = defineProps({
   token: {
@@ -10,16 +10,16 @@ const props = defineProps({
 
 const date = ref(new Date().toISOString().slice(0, 10)); // "YYYY-MM-DD"
 const loading = ref(false);
-const errorMessage = ref('');
+const errorMessage = ref("");
 const overview = ref([]); // Liste der Medikamente + Status
 const savingId = ref(null); // welches Medikament gerade "genommen" wird
 
 async function loadOverview() {
-  errorMessage.value = '';
+  errorMessage.value = "";
   overview.value = [];
 
   if (!props.token) {
-    errorMessage.value = 'Du bist nicht eingeloggt.';
+    errorMessage.value = "Du bist nicht eingeloggt.";
     return;
   }
 
@@ -30,19 +30,19 @@ async function loadOverview() {
       `http://localhost:8000/api/day-overview?date=${date.value}`,
       {
         headers: {
-          Authorization: 'Bearer ' + props.token,
+          Authorization: "Bearer " + props.token,
         },
       },
     );
 
     if (res.status === 401) {
-      errorMessage.value = 'Sitzung abgelaufen. Bitte neu einloggen.';
+      errorMessage.value = "Sitzung abgelaufen. Bitte neu einloggen.";
       return;
     }
 
     if (!res.ok) {
-      errorMessage.value = 'Fehler beim Laden der Tagesübersicht.';
-      console.error('Status:', res.status);
+      errorMessage.value = "Fehler beim Laden der Tagesübersicht.";
+      console.error("Status:", res.status);
       return;
     }
 
@@ -50,28 +50,27 @@ async function loadOverview() {
     overview.value = data.overview ?? [];
   } catch (err) {
     console.error(err);
-    errorMessage.value = 'Server nicht erreichbar.';
+    errorMessage.value = "Server nicht erreichbar.";
   } finally {
     loading.value = false;
   }
 }
 
-// Einnahme für ein Medikament dokumentieren
 async function markTaken(medicationId) {
   if (!props.token) {
-    errorMessage.value = 'Du bist nicht eingeloggt.';
+    errorMessage.value = "Du bist nicht eingeloggt.";
     return;
   }
 
-  errorMessage.value = '';
+  errorMessage.value = "";
   savingId.value = medicationId;
 
   try {
-    const res = await fetch('http://localhost:8000/api/intakes', {
-      method: 'POST',
+    const res = await fetch("http://localhost:8000/api/intakes", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + props.token,
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + props.token,
       },
       body: JSON.stringify({
         medicationId,
@@ -81,42 +80,39 @@ async function markTaken(medicationId) {
     });
 
     if (res.status === 401) {
-      errorMessage.value = 'Sitzung abgelaufen. Bitte neu einloggen.';
+      errorMessage.value = "Sitzung abgelaufen. Bitte neu einloggen.";
       return;
     }
 
     if (!res.ok) {
-      errorMessage.value = 'Fehler beim Speichern der Einnahme.';
-      console.error('Status:', res.status);
+      errorMessage.value = "Fehler beim Speichern der Einnahme.";
+      console.error("Status:", res.status);
       return;
     }
 
-    // Nach erfolgreichem Speichern: Übersicht neu laden
     await loadOverview();
   } catch (err) {
     console.error(err);
-    errorMessage.value = 'Server nicht erreichbar.';
+    errorMessage.value = "Server nicht erreichbar.";
   } finally {
     savingId.value = null;
   }
 }
 
-// Beim ersten Mount direkt laden
 onMounted(() => {
   loadOverview();
 });
 
-// Bei Datumsänderung neu laden
 watch(date, () => {
   loadOverview();
 });
 </script>
 
 <template>
-  <section style="margin-top: 2rem;">
-    <h2>Tagesübersicht</h2>
+  <section class="day-section">
+    <h2 class="day-title">Tagesübersicht</h2>
 
-    <div style="margin-bottom: 0.5rem;">
+    <div class="day-date-row">
       <label>
         Datum wählen:
         <input v-model="date" type="date" />
@@ -125,7 +121,7 @@ watch(date, () => {
 
     <p v-if="loading">Lade Tagesübersicht…</p>
 
-    <p v-if="errorMessage" style="color: red;">
+    <p v-if="errorMessage" class="error-text">
       {{ errorMessage }}
     </p>
 
@@ -134,41 +130,186 @@ watch(date, () => {
         Für dieses Datum sind keine Medikamente oder Einnahmen hinterlegt.
       </p>
 
-      <ul v-else>
-        <li
+      <div v-else class="day-list">
+        <div
           v-for="item in overview"
           :key="item.id"
-          style="margin-bottom: 0.75rem; padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px;"
+          class="day-card"
         >
-          <strong>{{ item.name }}</strong> – {{ item.dosage }}
-          <span v-if="item.times && item.times.length">
-            ({{ item.times.join(', ') }})
-          </span>
-          <br />
-          Status:
-          <span v-if="item.taken" style="color: green;">genommen ✅</span>
-          <span v-else style="color: orange;">noch offen ⏳</span>
+          <div class="day-left">
+            <div class="pill-icon">💊</div>
+            <div class="day-text">
+              <div class="day-name">{{ item.name }}</div>
+              <div class="day-line">
+                {{ item.dosage }}
+                <span v-if="item.times && item.times.length">
+                  – {{ item.times.join(", ") }}
+                </span>
+              </div>
+              <div class="day-status-row">
+                Status:
+                <span
+                  v-if="item.taken"
+                  class="status-taken"
+                >
+                  genommen ✅
+                </span>
+                <span
+                  v-else
+                  class="status-open"
+                >
+                  noch offen ⏳
+                </span>
+              </div>
+            </div>
+          </div>
 
-          <div style="margin-top: 0.5rem;">
+          <div class="day-right">
             <button
+              class="day-btn"
+              :class="{
+                'day-btn-disabled': item.taken,
+                'day-btn-primary': !item.taken,
+              }"
               @click="markTaken(item.id)"
               :disabled="item.taken || savingId === item.id"
             >
-              {{ item.taken ? 'Schon dokumentiert' : (savingId === item.id ? 'Speichere…' : 'Einnahme jetzt dokumentieren') }}
+              <span v-if="item.taken">Schon dokumentiert</span>
+              <span v-else-if="savingId === item.id">Speichere…</span>
+              <span v-else>Einnahme dokumentieren</span>
             </button>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-input[type='date'] {
-  margin-left: 0.5rem;
+.day-section {
+  margin-top: 2rem;
 }
-button {
-  padding: 0.35rem 0.7rem;
+
+.day-title {
+  font-size: 1.7rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #1c2734;
+}
+
+.day-date-row {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.day-date-row input[type="date"] {
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+.error-text {
+  color: red;
+}
+
+/* Karten-Liste */
+.day-list {
+  margin-top: 0.5rem;
+}
+
+/* Karte – Optik wie Medikamentenliste */
+.day-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f6f2ff;
+  border-radius: 16px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 10px 25px rgba(31, 41, 55, 0.08);
+}
+
+.day-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pill-icon {
+  font-size: 1.5rem;
+}
+
+.day-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.day-name {
+  font-weight: 600;
+  color: #1f2933;
+}
+
+.day-line {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.day-status-row {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.status-taken {
+  color: #16a34a;
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.status-open {
+  color: #f97316;
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+/* Buttons rechts */
+.day-right {
+  display: flex;
+  align-items: center;
+}
+
+.day-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+/* Primär: Einnahme jetzt dokumentieren */
+.day-btn-primary {
+  background: #5740ff;
+  color: white;
+  box-shadow: 0 10px 25px rgba(87, 64, 255, 0.35);
+}
+.day-btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+/* Schon dokumentiert – sehr hell */
+.day-btn-disabled {
+  background: #ede7ff;
+  color: #5b3fd3;
+  box-shadow: none;
+}
+
+/* disabled-Zustand im Browser */
+.day-btn:disabled {
+  cursor: default;
+  opacity: 1;
 }
 </style>
