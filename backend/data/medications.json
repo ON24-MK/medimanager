@@ -1,11 +1,11 @@
 {
   "medications": [
     {
-      "id": "363ad95c-2be8-45e3-b136-03032597d635",
-      "name": "Lasix",
-      "dosage": "10 mg",
+      "id": "e31c7794-3777-49a0-a2e9-de05d0b70c8f",
+      "name": "Medikinet",
+      "dosage": "20 mg",
       "times": [
-        "mittags"
+        "morgens"
       ],
       "notes": ""
     }
