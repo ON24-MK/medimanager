@@ -8,6 +8,15 @@
         "mittags"
       ],
       "notes": ""
+    },
+    {
+      "id": "be30e8a7-c0ec-40e5-9c92-6abdea84923b",
+      "name": "Test",
+      "dosage": "10 mg",
+      "times": [
+        "mittags"
+      ],
+      "notes": ""
     }
   ]
 }
