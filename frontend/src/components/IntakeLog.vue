@@ -92,7 +92,7 @@ watch(date, () => {
     </p>
 
     <div v-if="!loading && !errorMessage">
-      <p v-if="!intakes.length">
+      <p v-if="!intakes.length" class="log-empty">
         Für dieses Datum wurden noch keine Einnahmen dokumentiert.
       </p>
 
@@ -145,6 +145,7 @@ watch(date, () => {
 <style scoped>
 .log-section {
   margin-top: 2rem;
+  margin-bottom: 0.75rem;
 }
 
 .log-title {
@@ -171,6 +172,13 @@ watch(date, () => {
   color: red;
 }
 
+.log-empty {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
 .log-list {
   margin-top: 0.5rem;
 }
@@ -182,8 +190,8 @@ watch(date, () => {
   padding: 0.8rem 1rem;
   margin-bottom: 0.5rem;
   border-radius: 12px;
-  background: #f5f3ff;   /* 🎯 gleich wie Medikamente */
-  box-shadow: none;      /* 🎯 Schatten weg */
+  background: #f5f3ff;
+  box-shadow: none;
 }
 
 /* Linke Seite */
