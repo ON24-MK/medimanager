@@ -110,13 +110,6 @@ async function handleSubmit() {
         </label>
       </div>
 
-      <div style="margin-bottom: 0.5rem;">
-        <label>
-          Notizen<br />
-          <textarea v-model="notes" rows="2" style="width: 100%; max-width: 300px;"></textarea>
-        </label>
-      </div>
-
       <button type="submit" :disabled="loading">
         {{ loading ? 'Speichern…' : 'Medikament anlegen' }}
       </button>
@@ -141,5 +134,7 @@ input {
 button {
   padding: 0.4rem 0.8rem;
   cursor: pointer;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 </style>
