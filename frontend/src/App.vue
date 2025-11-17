@@ -330,6 +330,8 @@ textarea {
   font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
+  width: 160px;         /* <-- NEU: feste Breite */
+  text-align: center;
 }
 
 .tab + .tab {
