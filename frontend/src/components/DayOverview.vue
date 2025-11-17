@@ -217,7 +217,7 @@ p[v-if="loading"],
 }
 
 .day-list {
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
 }
 
 /* Box Styling */
@@ -324,4 +324,9 @@ p[v-if="loading"],
   opacity: 1;
   cursor: default;
 }
+
+.day-section > div > p {
+  margin-bottom: 0.2rem;
+}
+
 </style>
