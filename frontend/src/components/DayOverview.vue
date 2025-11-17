@@ -197,7 +197,7 @@ watch(date, () => {
 }
 
 .day-date-row {
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   text-align: center;
 }
 
@@ -209,27 +209,29 @@ watch(date, () => {
   font-size: 0.9rem;
 }
 
-.error-text {
-  color: red;
+/* kleinerer Loading-Text & Fehlertext */
+p[v-if="loading"],
+.error-text,
+.day-section p {
+  font-size: 0.85rem;
 }
 
 .day-list {
-  margin-top: 0.5rem;
+  margin-top: 0.3rem;
 }
 
-/* einzelner Eintrag – optisch wie Medikamentenliste */
+/* Box Styling */
 .day-item {
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
-  padding: 0.8rem 1rem;
-  margin-bottom: 0.5rem;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.45rem;
   border-radius: 12px;
   background: #f5f3ff;
-  box-shadow: 0 10px 25px rgba(31, 41, 55, 0.08);
+  box-shadow: none;
 }
 
-/* Linke Seite: Icon + Text, gleich wie med-list__info */
 .day-info {
   display: flex;
   align-items: flex-start;
@@ -238,7 +240,6 @@ watch(date, () => {
   min-width: 0;
 }
 
-/* feste Icon-Breite → Text (Name, Dosierung, Status) startet immer am selben Punkt */
 .day-icon {
   font-size: 1.4rem;
   flex-shrink: 0;
@@ -248,9 +249,9 @@ watch(date, () => {
 }
 
 .day-text {
-  display: flex;       
-  flex-direction: column; 
-  gap: 0.3rem;            
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
   text-align: left;
   min-width: 0;
 }
@@ -261,30 +262,28 @@ watch(date, () => {
   word-break: break-word;
   line-height: 1.2rem;
   min-height: 1.2rem;
-  display: flex;
-  align-items: left;
 }
 
 .day-details {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #4b5563;
 }
 
 .day-status-row {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: #4b5563;
 }
 
 .status-taken {
   color: #16a34a;
   font-weight: 600;
-  margin-left: 0.3rem;
+  margin-left: 0.25rem;
 }
 
 .status-open {
   color: #f97316;
   font-weight: 600;
-  margin-left: 0.3rem;
+  margin-left: 0.25rem;
 }
 
 .day-actions {
@@ -301,17 +300,15 @@ watch(date, () => {
   border: none;
   border-radius: 999px;
   padding: 0.55rem 0.8rem;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s ease, transform 0.05s ease;
   white-space: nowrap;
 }
 
 .day-btn-primary {
-  background: linear-gradient(90deg, #4f46e5, #4338ca);
+  background: #4f46e5;
   color: #ffffff;
-  box-shadow: 0 10px 25px rgba(67, 56, 202, 0.35);
 }
 
 .day-btn-primary:hover {
@@ -321,11 +318,10 @@ watch(date, () => {
 .day-btn-disabled {
   background: #e4e8ff;
   color: #27329f;
-  box-shadow: none;
 }
 
 .day-btn:disabled {
-  cursor: default;
   opacity: 1;
+  cursor: default;
 }
 </style>
