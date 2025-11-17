@@ -280,12 +280,12 @@ watch(date, () => {
   margin-left: 0.3rem;
 }
 
-/* Rechte Spalte: fester Bereich */
 .day-right {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Button oben statt mittig */
   justify-content: center;
-  min-width: 200px; /* feste Breite → Buttons gleich groß */
+  min-width: 200px;
+  padding-top: 4px; /* optional: feine Justierung */
 }
 
 /* Standard Button Style */
@@ -301,25 +301,23 @@ watch(date, () => {
   transition: background 0.15s ease, transform 0.05s ease;
 }
 
-/* LILA Button – Einnahme dokumentieren */
+/* LILA Button – Einnahme dokumentieren (dunkler) */
 .day-btn-primary {
-  background: linear-gradient(90deg, #6b46ff, #4534ff);
-  color: white;
-  box-shadow: 0 10px 25px rgba(87, 64, 255, 0.35);
+  background: linear-gradient(90deg, #4f46e5, #4338ca);
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(67, 56, 202, 0.35);
 }
 
 .day-btn-primary:hover {
   transform: translateY(-1px);
 }
 
-/* Heller Button – Schon dokumentiert */
 .day-btn-disabled {
-  background: #ede7ff;
-  color: #5b3fd3;
+  background: #e4e8ff;
+  color: #27329f;
   box-shadow: none;
 }
 
-/* disabled bleibt trotzdem clickable-sicher */
 .day-btn:disabled {
   cursor: default;
   opacity: 1;
