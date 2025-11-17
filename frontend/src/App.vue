@@ -2,17 +2,30 @@
   <div
     style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: 0 auto;"
   >
-    <!-- Größerer Titel -->
-    <h1
+    <!-- Titel + Logout in einer Zeile -->
+    <div
       style="
-        font-size: 3rem;
-        font-weight: 700;
-        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 2rem;
       "
     >
-      MediManager
-    </h1>
+      <h1
+        style="
+          font-size: 3rem;
+          font-weight: 700;
+          margin: 0;
+        "
+      >
+        MediManager
+      </h1>
+
+      <!-- Logout nur wenn eingeloggt -->
+      <button v-if="token" @click="logout" style="margin-top: 6.5px;">
+        Logout
+      </button>
+    </div>
 
     <!-- LOGIN-BEREICH -->
     <div v-if="!token">
@@ -24,14 +37,7 @@
 
     <!-- EINGELOGGTER BEREICH -->
     <div v-else>
-      <!-- Nur Logout oben rechts, kein 'Willkommen' mehr -->
-      <div
-        style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1.5rem;"
-      >
-        <button @click="logout">Logout</button>
-      </div>
-
-      <!-- Willkommens-Block, solange noch kein Tab gewählt wurde -->
+      <!-- Willkommens-Block (nur wenn kein Tab ausgewählt) -->
       <div
         v-if="!activeTab"
         style="
