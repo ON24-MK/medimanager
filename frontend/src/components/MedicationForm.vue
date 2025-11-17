@@ -115,12 +115,13 @@ async function handleSubmit() {
       </button>
     </form>
 
-    <p v-if="errorMessage" style="color: red; margin-top: 0.5rem;">
-      {{ errorMessage }}
-    </p>
-    <p v-if="successMessage" style="color: green; margin-top: 0.5rem;">
-      {{ successMessage }}
-    </p>
+   <p v-if="errorMessage" class="feedback-message" style="color: red;">
+  {{ errorMessage }}
+</p>
+
+<p v-if="successMessage" class="feedback-message" style="color: green;">
+  {{ successMessage }}
+</p>
   </section>
 </template>
 
@@ -135,6 +136,12 @@ button {
   padding: 0.4rem 0.8rem;
   cursor: pointer;
   margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.feedback-message {
+  font-size: 0.85rem;  
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 </style>
