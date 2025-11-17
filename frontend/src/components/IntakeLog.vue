@@ -175,7 +175,6 @@ watch(date, () => {
   margin-top: 0.5rem;
 }
 
-/* Karte wie Tagesübersicht / MedList */
 .log-item {
   display: flex;
   align-items: flex-start;
@@ -183,8 +182,8 @@ watch(date, () => {
   padding: 0.8rem 1rem;
   margin-bottom: 0.5rem;
   border-radius: 12px;
-  background: #f5f3ff;
-  box-shadow: 0 10px 25px rgba(31, 41, 55, 0.08);
+  background: #f5f3ff;   /* 🎯 gleich wie Medikamente */
+  box-shadow: none;      /* 🎯 Schatten weg */
 }
 
 /* Linke Seite */
