@@ -1,13 +1,3 @@
 {
-  "medications": [
-    {
-      "id": "52f8e083-c755-4cf4-81db-f6f35ec4e68b",
-      "name": "c",
-      "dosage": "c",
-      "times": [
-        "s"
-      ],
-      "notes": ""
-    }
-  ]
+  "medications": []
 }
