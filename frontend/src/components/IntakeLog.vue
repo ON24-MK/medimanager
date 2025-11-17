@@ -174,7 +174,7 @@ watch(date, () => {
 
 .log-empty {
   font-size: 0.85rem;
-  color: #555;
+  color: #272424ff;
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
 }
@@ -264,4 +264,5 @@ watch(date, () => {
   color: #6b7280;
   margin-top: 0.2rem;
 }
+
 </style>

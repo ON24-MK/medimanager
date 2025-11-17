@@ -8,6 +8,24 @@
       "taken": true,
       "notes": "alles okay",
       "createdAt": "2025-11-16T11:33:26.252Z"
+    },
+    {
+      "id": "85a1e68c-eef9-47e7-a944-bdc73682a6ee",
+      "medicationId": "2e46d9c6-3e98-46be-819c-5614adf628cd",
+      "date": "2025-11-18",
+      "time": null,
+      "taken": true,
+      "notes": "",
+      "createdAt": "2025-11-17T15:45:06.307Z"
+    },
+    {
+      "id": "52e6e5b9-1611-4770-b9ca-bdbdfee1c1cf",
+      "medicationId": "363ad95c-2be8-45e3-b136-03032597d635",
+      "date": "2025-11-17",
+      "time": null,
+      "taken": true,
+      "notes": "",
+      "createdAt": "2025-11-17T15:45:33.017Z"
     }
   ]
 }
