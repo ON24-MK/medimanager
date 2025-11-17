@@ -107,7 +107,7 @@ watch(date, () => {
 
             <div class="log-text">
               <div class="log-name">
-                {{ getMedicationName(entry.medicationId) }}
+                {{ entry.medicationName || getMedicationName(entry.medicationId) }}
               </div>
 
               <div class="log-details">

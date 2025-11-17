@@ -9,11 +9,12 @@ export interface Medication {
 export interface Intake {
   id: string;
   medicationId: string;
-  date: string;      // "YYYY-MM-DD"
-  time?: string;     // z.B. "morgens"
+  medicationName?: string;  // NEU: Name einfrieren
+  date: string;             // "YYYY-MM-DD"
+  time?: string;            // z.B. "morgens"
   taken: boolean;
   notes?: string;
-  createdAt: string; // ISO-String
+  createdAt: string;        // ISO-String
 }
 
 export interface User {

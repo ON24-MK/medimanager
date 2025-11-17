@@ -23,12 +23,12 @@ export function registerIntakeRoutes(router: Router) {
         return;
       }
 
-      // prüfen: Medikament existiert?
+      // prüfen: Medikament existiert + Name holen
       const medsData = await loadData();
       const meds = medsData.medications ?? [];
-      const medExists = meds.some((m) => m.id === intakeData.medicationId);
+      const med = meds.find((m) => m.id === intakeData.medicationId);
 
-      if (!medExists) {
+      if (!med) {
         ctx.response.status = 400;
         ctx.response.body = { error: "Medikament existiert nicht" };
         return;
@@ -40,6 +40,7 @@ export function registerIntakeRoutes(router: Router) {
       const newIntake: Intake = {
         id: crypto.randomUUID(),
         medicationId: intakeData.medicationId,
+        medicationName: med.name,        // 🔥 Name einfrieren
         date: intakeData.date,           // "YYYY-MM-DD"
         time: intakeData.time ?? null,   // z.B. "morgens"
         taken: intakeData.taken ?? true, // Standard: true
@@ -80,4 +81,5 @@ export function registerIntakeRoutes(router: Router) {
     }
   });
 }
+
 
