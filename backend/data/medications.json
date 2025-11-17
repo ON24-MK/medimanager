@@ -10,14 +10,13 @@
       "notes": "bitte vorsichtig sein"
     },
     {
-      "id": "41fc7d54-b1ab-4531-9bbb-5087656743e1",
-      "name": "Medikinet",
-      "dosage": "20 mg",
+      "id": "d66099d9-0be7-4f8e-a69b-6bbceedbad6d",
+      "name": "test mici ",
+      "dosage": "test g ",
       "times": [
-        "morgens",
-        "mittags"
+        "morgens"
       ],
-      "notes": "Nicht vergessen!"
+      "notes": ""
     }
   ]
 }
