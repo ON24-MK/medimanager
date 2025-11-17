@@ -248,8 +248,10 @@ watch(date, () => {
 }
 
 .day-text {
+  display: flex;       
+  flex-direction: column; 
+  gap: 0.3rem;            
   text-align: left;
-  flex-direction: column;
   min-width: 0;
 }
 
