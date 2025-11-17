@@ -227,12 +227,10 @@ watch(date, () => {
 
   background: #f6f2ff;
   border-radius: 16px;
-  padding: 1rem 1.25rem;
+  padding: 0.7rem 1.25rem 0.6rem 1.25rem; /* oben / rechts / unten / links */
   margin-bottom: 0.9rem;
   box-shadow: 0 10px 25px rgba(31, 41, 55, 0.08);
-
-  /* sorgt dafür, dass Höhe sich mit Text ausgleicht */
-  min-height: 95px;
+  min-height: 80px; /* optional etwas kleiner */
 }
 
 /* Linke Spalte */

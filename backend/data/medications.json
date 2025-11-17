@@ -17,6 +17,33 @@
         "mittags"
       ],
       "notes": "Viel trinken"
+    },
+    {
+      "id": "faa6ad78-140b-48d9-bd4b-c63f07a8981d",
+      "name": "Goldpulver",
+      "dosage": "20 mg ",
+      "times": [
+        "mittags"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "6d3a0cab-37c2-4a88-916c-9e6629b5e71c",
+      "name": "Essen ",
+      "dosage": "10 mg",
+      "times": [
+        "morgens"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "c6a36d3f-16b0-4e9f-8b4b-026b9907b8f2",
+      "name": "rr",
+      "dosage": "rrr",
+      "times": [
+        "rrr"
+      ],
+      "notes": ""
     }
   ]
 }
