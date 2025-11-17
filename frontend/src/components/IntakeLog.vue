@@ -75,10 +75,10 @@ watch(date, () => {
 </script>
 
 <template>
-  <section style="margin-top: 2rem;">
-    <h2>Tagebuch</h2>
+  <section class="log-section">
+    <h2 class="log-title">Tagebuch</h2>
 
-    <div style="margin-bottom: 0.5rem;">
+    <div class="log-date-row">
       <label>
         Datum wählen:
         <input v-model="date" type="date" />
@@ -87,7 +87,7 @@ watch(date, () => {
 
     <p v-if="loading">Lade Einträge…</p>
 
-    <p v-if="errorMessage" style="color: red;">
+    <p v-if="errorMessage" class="error-text">
       {{ errorMessage }}
     </p>
 
@@ -96,34 +96,165 @@ watch(date, () => {
         Für dieses Datum wurden noch keine Einnahmen dokumentiert.
       </p>
 
-      <ul v-else>
-        <li
+      <div v-else class="log-list">
+        <div
           v-for="entry in intakes"
           :key="entry.id"
-          style="margin-bottom: 0.75rem; padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px;"
+          class="log-item"
         >
-          <strong>{{ getMedicationName(entry.medicationId) }}</strong>
-          <br />
-          Datum: {{ entry.date }}
-          <br />
-          Status:
-          <span v-if="entry.taken" style="color: green;">genommen ✅</span>
-          <span v-else style="color: orange;">nicht genommen ⚠️</span>
-          <br />
-          <span v-if="entry.time">Zeit: {{ entry.time }}</span>
-          <span v-if="entry.notes"><br />Notizen: {{ entry.notes }}</span>
-          <br />
-          <small v-if="entry.createdAt">
-            eingetragen am {{ new Date(entry.createdAt).toLocaleString() }}
-          </small>
-        </li>
-      </ul>
+          <div class="log-info">
+            <span class="log-icon" aria-hidden="true">💊</span>
+
+            <div class="log-text">
+              <div class="log-name">
+                {{ getMedicationName(entry.medicationId) }}
+              </div>
+
+              <div class="log-details">
+                Datum: {{ entry.date }}
+                <span v-if="entry.time">
+                  – Zeit: {{ entry.time }}
+                </span>
+              </div>
+
+              <div class="log-status-row">
+                Status:
+                <span v-if="entry.taken" class="status-taken">
+                  genommen ✅
+                </span>
+                <span v-else class="status-open">
+                  nicht genommen ⚠️
+                </span>
+              </div>
+
+              <div v-if="entry.notes" class="log-notes">
+                Notizen: {{ entry.notes }}
+              </div>
+
+              <div v-if="entry.createdAt" class="log-meta">
+                eingetragen am {{ new Date(entry.createdAt).toLocaleString() }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-input[type='date'] {
+.log-section {
+  margin-top: 2rem;
+}
+
+.log-title {
+  font-size: 1.7rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #1c2734;
+}
+
+.log-date-row {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.log-date-row input[type='date'] {
   margin-left: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+.error-text {
+  color: red;
+}
+
+.log-list {
+  margin-top: 0.5rem;
+}
+
+/* Karte wie Tagesübersicht / MedList */
+.log-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 12px;
+  background: #f5f3ff;
+  box-shadow: 0 10px 25px rgba(31, 41, 55, 0.08);
+}
+
+/* Linke Seite */
+.log-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Icon feste Breite → Text startet immer exakt gleich */
+.log-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 32px;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.log-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  text-align: left;
+}
+
+.log-name {
+  font-weight: 600;
+  color: #1f2933;
+  word-break: break-word;
+  line-height: 1.2rem;
+  min-height: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.log-details {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.log-status-row {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-top: 0.1rem;
+}
+
+.status-taken {
+  color: #16a34a;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+
+.status-open {
+  color: #f97316;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+
+.log-notes {
+  font-size: 0.9rem;
+  color: #374151;
+  margin-top: 0.1rem;
+}
+
+.log-meta {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.2rem;
 }
 </style>

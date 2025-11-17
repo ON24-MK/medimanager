@@ -330,7 +330,7 @@ textarea {
   font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
-  width: 160px;         /* <-- NEU: feste Breite */
+  width: 160px;         
   text-align: center;
 }
 
