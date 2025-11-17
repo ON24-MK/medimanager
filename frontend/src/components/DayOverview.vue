@@ -273,7 +273,6 @@ watch(date, () => {
 .day-status-row {
   font-size: 0.9rem;
   color: #4b5563;
-  margin-top: 0.15rem;
 }
 
 .status-taken {
@@ -288,7 +287,6 @@ watch(date, () => {
   margin-left: 0.3rem;
 }
 
-/* rechte Seite: Button immer rechts bündig, ähnlich med-list__actions */
 .day-actions {
   display: flex;
   margin-left: auto;
