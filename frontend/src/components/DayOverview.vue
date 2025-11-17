@@ -164,7 +164,7 @@ watch(date, () => {
             </div>
           </div>
 
-          <div class="day-right">
+          <div class="day-right fixed-right">
             <button
               class="day-btn"
               :class="{
@@ -202,7 +202,7 @@ watch(date, () => {
   text-align: center;
 }
 
-.day-date-row input[type="date"] {
+.day-date-row input[type='date'] {
   margin-left: 0.5rem;
   padding: 0.3rem 0.5rem;
   border-radius: 999px;
@@ -214,27 +214,34 @@ watch(date, () => {
   color: red;
 }
 
-/* Karten-Liste */
 .day-list {
   margin-top: 0.5rem;
 }
 
-/* Karte – Optik wie Medikamentenliste */
+/* --- Karte wie Medikamentenliste --- */
 .day-card {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+
   background: #f6f2ff;
   border-radius: 16px;
-  padding: 0.9rem 1.1rem;
-  margin-bottom: 0.8rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.9rem;
   box-shadow: 0 10px 25px rgba(31, 41, 55, 0.08);
+
+  /* sorgt dafür, dass Höhe sich mit Text ausgleicht */
+  min-height: 95px;
 }
 
+/* Linke Spalte */
 .day-left {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 0.75rem;
+  flex: 1; /* wichtige Änderung → Button bleibt rechts */
 }
 
 .pill-icon {
@@ -244,12 +251,13 @@ watch(date, () => {
 .day-text {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0.15rem;
 }
 
 .day-name {
   font-weight: 600;
   color: #1f2933;
+  font-size: 1.05rem;
 }
 
 .day-line {
@@ -265,49 +273,55 @@ watch(date, () => {
 .status-taken {
   color: #16a34a;
   font-weight: 600;
-  margin-left: 0.25rem;
+  margin-left: 0.3rem;
 }
 
 .status-open {
   color: #f97316;
   font-weight: 600;
-  margin-left: 0.25rem;
+  margin-left: 0.3rem;
 }
 
-/* Buttons rechts */
+/* Rechte Spalte: fester Bereich */
 .day-right {
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 200px; /* feste Breite → Buttons gleich groß */
 }
 
+/* Standard Button Style */
 .day-btn {
+  width: 100%;
+  text-align: center;
   border: none;
   border-radius: 999px;
-  padding: 0.4rem 0.95rem;
+  padding: 0.55rem 0.8rem;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.05s ease;
 }
 
-/* Primär: Einnahme jetzt dokumentieren */
+/* LILA Button – Einnahme dokumentieren */
 .day-btn-primary {
-  background: #5740ff;
+  background: linear-gradient(90deg, #6b46ff, #4534ff);
   color: white;
   box-shadow: 0 10px 25px rgba(87, 64, 255, 0.35);
 }
+
 .day-btn-primary:hover {
   transform: translateY(-1px);
 }
 
-/* Schon dokumentiert – sehr hell */
+/* Heller Button – Schon dokumentiert */
 .day-btn-disabled {
   background: #ede7ff;
   color: #5b3fd3;
   box-shadow: none;
 }
 
-/* disabled-Zustand im Browser */
+/* disabled bleibt trotzdem clickable-sicher */
 .day-btn:disabled {
   cursor: default;
   opacity: 1;
