@@ -83,14 +83,13 @@ function requestEdit(med) {
 }
 
 .med-list__items {
-  list-style: none; /* keine Punkte */
+  list-style: none;
   margin: 1rem 0 0;
   padding: 0;
 }
 
 .med-list__item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 1.5rem;
   padding: 0.8rem 1rem;
@@ -102,26 +101,36 @@ function requestEdit(med) {
 /* Linke Seite */
 .med-list__info {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
-  min-width: 0; /* für lange Namen */
+  flex: 1;           /* nimmt alles links ein */
+  min-width: 0;      /* damit lange Namen umbrechen können */
 }
 
+/* Icon hat feste Breite → Text startet immer gleich */
 .med-list__icon {
   font-size: 1.4rem;
   flex-shrink: 0;
+  width: 32px;       /* fix */
+  text-align: center;
+  margin-top: 2px;
 }
 
 .med-list__text {
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+  min-width: 0;
 }
 
 .med-list__name {
   font-weight: 600;
   color: #1f2933;
-  word-break: break-word; /* lange Wörter umbrechen */
+  word-break: break-word;
+  line-height: 1.2rem;  
+  min-height: 1.2rem;   
+  display: flex;
+  align-items: center;   
 }
 
 .med-list__details {
@@ -129,14 +138,17 @@ function requestEdit(med) {
   color: #4b5563;
 }
 
-/* Rechte Seite: Buttons immer rechts bündig */
+/* Rechte Seite: Buttons fest rechts */
 .med-list__actions {
   display: flex;
   gap: 0.5rem;
+  margin-left: auto;   /* schiebt sie ganz nach rechts */
   flex-shrink: 0;
+  min-width: 170px;    /* immer gleich breiter Button-Bereich */
+  justify-content: flex-end;
 }
 
-/* Button-Styles nur für diese Liste */
+/* Buttons */
 .med-btn {
   border: none;
   border-radius: 999px;
