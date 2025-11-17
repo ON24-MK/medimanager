@@ -17,21 +17,10 @@
         </label>
       </div>
 
-      <div style="margin-bottom: 0.5rem;">
+      <div style="margin-bottom: 1.4rem;">
         <label>
           Einnahmezeit<br />
           <input v-model="timesText" type="text" placeholder="z.B. morgens, abends" />
-        </label>
-      </div>
-
-      <div style="margin-bottom: 0.5rem;">
-        <label>
-          Notizen<br />
-          <textarea
-            v-model="notes"
-            rows="2"
-            style="width: 100%; max-width: 300px;"
-          ></textarea>
         </label>
       </div>
 

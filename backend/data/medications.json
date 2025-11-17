@@ -8,6 +8,24 @@
         "morgens"
       ],
       "notes": ""
+    },
+    {
+      "id": "f95fb929-72fe-49ec-a843-255d14cd4470",
+      "name": "Lasix",
+      "dosage": "10 mg",
+      "times": [
+        "mittags"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "318afbe4-3193-4030-837e-83f833b5f073",
+      "name": "ddd",
+      "dosage": "dd",
+      "times": [
+        "dd"
+      ],
+      "notes": ""
     }
   ]
 }
