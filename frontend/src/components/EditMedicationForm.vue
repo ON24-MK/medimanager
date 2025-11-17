@@ -24,7 +24,11 @@
         </label>
       </div>
 
-      <button type="submit" :disabled="loading">
+      <button
+      type="submit"
+      :disabled="loading"
+      style="margin-bottom: 0.8rem;"
+      >
         {{ loading ? 'Speichere…' : 'Änderungen speichern' }}
       </button>
 
