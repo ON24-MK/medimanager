@@ -248,9 +248,8 @@ watch(date, () => {
 }
 
 .day-text {
-  display: flex;
+  text-align: left;
   flex-direction: column;
-  gap: 0.1rem;
   min-width: 0;
 }
 
@@ -261,7 +260,7 @@ watch(date, () => {
   line-height: 1.2rem;
   min-height: 1.2rem;
   display: flex;
-  align-items: center;
+  align-items: left;
 }
 
 .day-details {
