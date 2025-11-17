@@ -180,4 +180,11 @@ function requestEdit(med) {
 .med-btn--danger:hover {
   background: #fecaca;
 }
+
+.med-list__empty {
+  color: #555;
+  font-size: 0.85rem;   /* kleinerer Text */
+  margin-top: 0.25rem;  /* weniger Abstand nach oben */
+  margin-bottom: 0.3rem; /* weniger Abstand nach unten */
+}
 </style>

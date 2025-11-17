@@ -1,38 +1,11 @@
 {
   "medications": [
     {
-      "id": "c0a45480-6ce5-4809-a7a8-a1038864ec65",
-      "name": "Methylphenidat",
-      "dosage": "10 mg",
+      "id": "52f8e083-c755-4cf4-81db-f6f35ec4e68b",
+      "name": "c",
+      "dosage": "c",
       "times": [
-        "morgens"
-      ],
-      "notes": "bitte vorsichtig sein"
-    },
-    {
-      "id": "06cf2f92-190d-4dd6-b92f-f8b77b9df80c",
-      "name": "Silbereisen",
-      "dosage": "200 mg",
-      "times": [
-        "mittags"
-      ],
-      "notes": "Viel trinken"
-    },
-    {
-      "id": "faa6ad78-140b-48d9-bd4b-c63f07a8981d",
-      "name": "Goldpulver",
-      "dosage": "20 mg ",
-      "times": [
-        "mittags"
-      ],
-      "notes": ""
-    },
-    {
-      "id": "fc8fc2a2-c4eb-43a3-abe8-6f58cb5516ce",
-      "name": "Wasser",
-      "dosage": "10 mg",
-      "times": [
-        "mittags"
+        "s"
       ],
       "notes": ""
     }
