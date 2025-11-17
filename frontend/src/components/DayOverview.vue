@@ -220,7 +220,7 @@ watch(date, () => {
 /* einzelner Eintrag – optisch wie Medikamentenliste */
 .day-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
   padding: 0.8rem 1rem;
   margin-bottom: 0.5rem;
