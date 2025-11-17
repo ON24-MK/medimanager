@@ -91,14 +91,14 @@ async function handleSubmit() {
     <form @submit.prevent="handleSubmit">
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Medikamentenname<br />
+          Medikamentenname (Pflichtfeld)<br />
           <input v-model="name" type="text" placeholder="z.B. Medikinet" />
         </label>
       </div>
 
       <div style="margin-bottom: 0.5rem;">
         <label>
-          Dosierung<br />
+          Dosierung (Pflichtfeld)<br />
           <input v-model="dosage" type="text" placeholder="z.B. 10 mg" />
         </label>
       </div>
