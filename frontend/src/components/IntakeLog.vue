@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const props = defineProps({
   token: {
@@ -12,7 +12,6 @@ const props = defineProps({
   },
 });
 
-const date = ref(new Date().toISOString().slice(0, 10)); // "YYYY-MM-DD"
 const loading = ref(false);
 const errorMessage = ref('');
 const intakes = ref([]);
@@ -35,14 +34,11 @@ async function loadIntakes() {
   loading.value = true;
 
   try {
-    const res = await fetch(
-      `http://localhost:8000/api/intakes?date=${date.value}`,
-      {
-        headers: {
-          Authorization: 'Bearer ' + props.token,
-        },
+    const res = await fetch('http://localhost:8000/api/intakes', {
+      headers: {
+        Authorization: 'Bearer ' + props.token,
       },
-    );
+    });
 
     if (res.status === 401) {
       errorMessage.value = 'Sitzung abgelaufen. Bitte neu einloggen.';
@@ -68,22 +64,13 @@ async function loadIntakes() {
 onMounted(() => {
   loadIntakes();
 });
-
-watch(date, () => {
-  loadIntakes();
-});
 </script>
 
 <template>
   <section class="log-section">
     <h2 class="log-title">Tagebuch</h2>
 
-    <div class="log-date-row">
-      <label>
-        Datum wählen:
-        <input v-model="date" type="date" />
-      </label>
-    </div>
+    <!-- keine Datumsauswahl mehr -->
 
     <p v-if="loading">Lade Einträge…</p>
 
@@ -93,7 +80,7 @@ watch(date, () => {
 
     <div v-if="!loading && !errorMessage">
       <p v-if="!intakes.length" class="log-empty">
-        Für dieses Datum wurden noch keine Einnahmen dokumentiert.
+        Es wurden bisher noch keine Einnahmen dokumentiert.
       </p>
 
       <div v-else class="log-list">
@@ -155,6 +142,7 @@ watch(date, () => {
   color: #1c2734;
 }
 
+/* log-date-row fällt weg, Styles können bleiben oder gelöscht werden */
 .log-date-row {
   margin-bottom: 1rem;
   text-align: center;
@@ -264,5 +252,4 @@ watch(date, () => {
   color: #6b7280;
   margin-top: 0.2rem;
 }
-
 </style>
