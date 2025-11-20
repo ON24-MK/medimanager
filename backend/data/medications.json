@@ -8,6 +8,15 @@
         "morgens"
       ],
       "notes": ""
+    },
+    {
+      "id": "729df9b2-b52e-4e0e-8d79-0ba0126c33f8",
+      "name": "Test",
+      "dosage": "10 mg",
+      "times": [
+        "mittags"
+      ],
+      "notes": ""
     }
   ]
 }
