@@ -10,13 +10,11 @@ import { registerDayOverviewRoutes } from "./routes/dayOverview.ts";
 const app = new Application();
 const router = new Router();
 
-// einfache Logs
 app.use(async (ctx, next) => {
   console.log(`${ctx.request.method} ${ctx.request.url.pathname}`);
   await next();
 });
 
-// Fehler-Handler
 app.use(async (ctx, next) => {
   try {
     await next();
@@ -27,13 +25,10 @@ app.use(async (ctx, next) => {
   }
 });
 
-// CORS für Frontend
 app.use(oakCors());
 
-// Auth-Middleware vor den Routen
 app.use(authMiddleware);
 
-// alle Routen registrieren
 registerHealthRoutes(router);
 registerAuthRoutes(router);
 registerMedicationRoutes(router);

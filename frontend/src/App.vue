@@ -2,7 +2,6 @@
   <div
     style="padding: 2rem; font-family: sans-serif; max-width: 900px; margin: 0 auto;"
   >
-    <!-- Titel + Logout in einer Zeile -->
     <div
       style="
         display: flex;
@@ -21,13 +20,11 @@
         MediManager
       </h1>
 
-      <!-- Logout nur wenn eingeloggt -->
       <button v-if="token" @click="logout" style="margin-top: 6.5px;">
         Logout
       </button>
     </div>
 
-    <!-- LOGIN-BEREICH -->
     <div v-if="!token">
       <p v-if="authError" style="color: red; margin-bottom: 0.5rem;">
         {{ authError }}
@@ -35,9 +32,7 @@
       <LoginForm @login-success="handleLoginSuccess" />
     </div>
 
-    <!-- EINGELOGGTER BEREICH -->
     <div v-else>
-      <!-- Willkommens-Block (nur wenn kein Tab ausgewählt) -->
       <div
         v-if="!activeTab"
         style="
@@ -58,7 +53,6 @@
         </p>
       </div>
 
-      <!-- Tabs -->
       <div class="tabs">
         <button
           class="tab"
@@ -85,7 +79,6 @@
         </button>
       </div>
 
-      <!-- TAB: Medikamente -->
       <div v-if="activeTab === 'meds'">
         <MedicationForm
           :token="token"
@@ -107,12 +100,10 @@
         />
       </div>
 
-      <!-- TAB: Tagesübersicht -->
       <div v-else-if="activeTab === 'overview'">
         <DayOverview :token="token" />
       </div>
 
-      <!-- TAB: Tagebuch -->
       <div v-else-if="activeTab === 'log'">
         <IntakeLog :token="token" :medications="medications" />
       </div>
@@ -129,32 +120,26 @@ import EditMedicationForm from './components/EditMedicationForm.vue';
 import DayOverview from './components/DayOverview.vue';
 import IntakeLog from './components/IntakeLog.vue';
 
-// TOKEN & FEHLER
 const token = ref(localStorage.getItem("token") || null);
 const authError = ref("");
 
-// BACKEND DATEN
 const health = ref(null);
 const medications = ref([]);
 const selectedMedicationForEdit = ref(null);
-const activeTab = ref(null); // noch kein Tab ausgewählt
+const activeTab = ref(null); 
 
-// BACKEND DATEN LADEN
 async function loadData() {
   try {
     authError.value = "";
 
-    // Health (öffentlich)
     const res = await fetch("http://localhost:8000/api/health");
     health.value = await res.json();
 
-    // Wenn nicht eingeloggt → nur Health
     if (!token.value) {
       medications.value = [];
       return;
     }
 
-    // Medis (geschützt)
     const medsRes = await fetch("http://localhost:8000/api/medications", {
       headers: {
         Authorization: "Bearer " + token.value,
@@ -177,14 +162,12 @@ async function loadData() {
   }
 }
 
-// LOGIN ERFOLG
 async function handleLoginSuccess(receivedToken) {
   token.value = receivedToken;
   localStorage.setItem("token", receivedToken);
   await loadData();
 }
 
-// LOGOUT
 function logout() {
   token.value = null;
   localStorage.removeItem("token");
@@ -194,12 +177,10 @@ function logout() {
   loadData();
 }
 
-// NACH MEDIKAMENT-ERSTELLUNG
 function handleMedicationCreated() {
   loadData();
 }
 
-// MEDIKAMENT LÖSCHEN
 async function handleMedicationDelete(id) {
   if (!token.value) return;
 
@@ -223,18 +204,15 @@ async function handleMedicationDelete(id) {
   }
 }
 
-// MEDIKAMENT ZUM BEARBEITEN AUSWÄHLEN
 function startEditMedication(med) {
   selectedMedicationForEdit.value = med;
 }
 
-// NACH UPDATE → Liste neu laden & Formular schließen
 async function handleMedicationUpdated() {
   await loadData();
   selectedMedicationForEdit.value = null;
 }
 
-// BEI START LADEN
 onMounted(async () => {
   await loadData();
 });
@@ -258,7 +236,6 @@ h2 {
   margin-top: 0;
 }
 
-/* Alle Sektionen (Status, Liste, Formulare, Overview, Tagebuch) als Cards */
 section {
   background: #ffffff;
   border-radius: 10px;
@@ -268,7 +245,6 @@ section {
   border: 1px solid #e5e7eb;
 }
 
-/* Buttons einheitlich */
 button {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
@@ -294,7 +270,6 @@ button:disabled {
   transform: none;
 }
 
-/* Listen etwas luftiger */
 ul {
   padding-left: 1.2rem;
 }
@@ -303,7 +278,6 @@ li {
   line-height: 1.4;
 }
 
-/* Inputs global etwas hübscher, falls kein scoped Style greift */
 input,
 textarea {
   border-radius: 6px;

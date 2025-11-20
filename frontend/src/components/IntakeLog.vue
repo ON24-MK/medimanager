@@ -16,7 +16,6 @@ const loading = ref(false);
 const errorMessage = ref('');
 const intakes = ref([]);
 
-// Hilfsfunktion: Medikamenten-Namen finden
 function getMedicationName(medicationId) {
   const med = props.medications.find(m => m.id === medicationId);
   return med ? med.name : `Unbekannt (${medicationId})`;
@@ -69,8 +68,6 @@ onMounted(() => {
 <template>
   <section class="log-section">
     <h2 class="log-title">Tagebuch</h2>
-
-    <!-- keine Datumsauswahl mehr -->
 
     <p v-if="loading">Lade Einträge…</p>
 
@@ -142,7 +139,6 @@ onMounted(() => {
   color: #1c2734;
 }
 
-/* log-date-row fällt weg, Styles können bleiben oder gelöscht werden */
 .log-date-row {
   margin-bottom: 1rem;
   text-align: center;
@@ -182,7 +178,6 @@ onMounted(() => {
   box-shadow: none;
 }
 
-/* Linke Seite */
 .log-info {
   display: flex;
   align-items: flex-start;
@@ -191,7 +186,6 @@ onMounted(() => {
   min-width: 0;
 }
 
-/* Icon feste Breite → Text startet immer exakt gleich */
 .log-icon {
   font-size: 1.4rem;
   flex-shrink: 0;

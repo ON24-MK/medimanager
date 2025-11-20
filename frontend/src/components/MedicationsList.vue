@@ -21,19 +21,16 @@ function requestEdit(med) {
   <section class="med-list">
     <h2>Deine Medikamentenliste</h2>
 
-    <!-- Nichts vorhanden -->
     <p v-if="!props.medications.length" class="med-list__empty">
       Keine Medikamente gespeichert.
     </p>
 
-    <!-- Liste -->
     <ul v-else class="med-list__items">
       <li
         v-for="med in props.medications"
         :key="med.id"
         class="med-list__item"
       >
-        <!-- Linke Seite: Icon + Text -->
         <div class="med-list__info">
           <span class="med-list__icon" aria-hidden="true">💊</span>
           <div class="med-list__text">
@@ -49,7 +46,6 @@ function requestEdit(med) {
           </div>
         </div>
 
-        <!-- Rechte Seite: Buttons immer bündig -->
         <div class="med-list__actions">
           <button
             type="button"
@@ -98,20 +94,18 @@ function requestEdit(med) {
   background: #f5f3ff;
 }
 
-/* Linke Seite */
 .med-list__info {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  flex: 1;           /* nimmt alles links ein */
-  min-width: 0;      /* damit lange Namen umbrechen können */
+  flex: 1;           
+  min-width: 0;      
 }
 
-/* Icon hat feste Breite → Text startet immer gleich */
 .med-list__icon {
   font-size: 1.4rem;
   flex-shrink: 0;
-  width: 32px;       /* fix */
+  width: 32px;       
   text-align: center;
   margin-top: 2px;
 }
@@ -138,17 +132,15 @@ function requestEdit(med) {
   color: #4b5563;
 }
 
-/* Rechte Seite: Buttons fest rechts */
 .med-list__actions {
   display: flex;
   gap: 0.5rem;
-  margin-left: auto;   /* schiebt sie ganz nach rechts */
+  margin-left: auto;   
   flex-shrink: 0;
-  min-width: 170px;    /* immer gleich breiter Button-Bereich */
+  min-width: 170px;    
   justify-content: flex-end;
 }
 
-/* Buttons */
 .med-btn {
   border: none;
   border-radius: 999px;
@@ -183,8 +175,8 @@ function requestEdit(med) {
 
 .med-list__empty {
   color: #555;
-  font-size: 0.85rem;   /* kleinerer Text */
-  margin-top: 0.25rem;  /* weniger Abstand nach oben */
-  margin-bottom: 0.3rem; /* weniger Abstand nach unten */
+  font-size: 0.85rem;  
+  margin-top: 0.25rem;  
+  margin-bottom: 0.3rem; 
 }
 </style>

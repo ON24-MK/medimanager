@@ -209,7 +209,6 @@ watch(date, () => {
   font-size: 0.9rem;
 }
 
-/* kleinerer Loading-Text & Fehlertext */
 p[v-if="loading"],
 .error-text,
 .day-section p {
@@ -220,7 +219,6 @@ p[v-if="loading"],
   margin-top: 0.5rem;
 }
 
-/* Box Styling */
 .day-item {
   display: flex;
   align-items: flex-start;

@@ -10,11 +10,20 @@
       "notes": ""
     },
     {
-      "id": "f95fb929-72fe-49ec-a843-255d14cd4470",
-      "name": "Lasix",
+      "id": "57185e6a-d407-4e34-8c9d-1544aed2f77f",
+      "name": "MedikamEND",
       "dosage": "10 mg",
       "times": [
-        "mittags"
+        "morgens"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "eb955d8f-d840-4085-86c6-589836325f3a",
+      "name": "ssqwd",
+      "dosage": "w4234234",
+      "times": [
+        "4234234"
       ],
       "notes": ""
     }

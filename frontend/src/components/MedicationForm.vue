@@ -12,7 +12,7 @@ const emit = defineEmits(['medication-created']);
 
 const name = ref('');
 const dosage = ref('');
-const timesText = ref(''); // z.B. "morgens, abends"
+const timesText = ref('');
 const notes = ref('');
 
 const loading = ref(false);

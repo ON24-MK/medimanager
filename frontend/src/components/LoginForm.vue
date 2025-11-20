@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue';
 
-// Events, die die Komponente nach außen schicken kann
-// - "login-success": wird gefeuert, wenn Login super klappt
 const emit = defineEmits(['login-success']);
 
 const username = ref('');
@@ -31,7 +29,6 @@ async function handleSubmit() {
 
     const data = await res.json();
 
-    // Token nach außen geben – App.vue entscheidet dann, was damit passiert
     emit('login-success', data.token);
   } catch (err) {
     console.error(err);

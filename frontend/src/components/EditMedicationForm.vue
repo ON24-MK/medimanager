@@ -79,7 +79,6 @@ const loading = ref(false);
 const errorMessage = ref('');
 const successMessage = ref('');
 
-// Falls sich medication-Prop ändert (z.B. anderes Medikament gewählt)
 watch(
   () => props.medication,
   (newMed) => {
